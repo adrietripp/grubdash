@@ -51,8 +51,7 @@ function dishExists(req, res, next) {
 function validateIdMatch(req, res, next) {
   const { dishId } = req.params;
   const { data: { id } = {} } = req.body;
-  // id is not required, but if present and not empty/null,
-  // and doesn't match dishId, return an error
+  
   if (id && id !== dishId) {
     return next({
       status: 400,
