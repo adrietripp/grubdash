@@ -2,7 +2,7 @@ const path = require("path");
 const orders = require(path.resolve("src/data/orders-data"));
 const nextId = require("../utils/nextId");
 
-// Validation middleware
+//middleware
 function orderExists(req, res, next) {
   const { orderId } = req.params;
   const foundOrder = orders.find((order) => order.id === orderId);
@@ -69,7 +69,7 @@ function validateStatus(req, res, next) {
   if (!status || status === "" || !["pending","preparing","out-for-delivery","delivered"].includes(status)) {
     return next({ status: 400, message: "Order must have a status of pending, preparing, out-for-delivery, delivered" });
   }
-  // If trying to update a delivered order, return error
+
   if (res.locals.order && res.locals.order.status === "delivered") {
     return next({ status: 400, message: "A delivered order cannot be changed" });
   }
